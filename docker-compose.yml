@@ -7,10 +7,11 @@ services:
   postgres:
     image: postgres:15-alpine # Usamos una imagen ligera de PostgreSQL
     restart: always # Reinicia el contenedor si falla
+    env_file: .env
     environment:
-      POSTGRES_DB: certitrack_db # Nombre de la base de datos
-      POSTGRES_USER: user # Usuario de la base de datos
-      POSTGRES_PASSWORD: password # Contraseña del usuario
+      POSTGRES_DB: ${POSTGRES_DB:-certitrack_db} # Nombre de la base de datos
+      POSTGRES_USER: ${POSTGRES_USER:-postgres} # Usuario de la base de datos
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres} # Contraseña del usuario
     ports:
       - "5432:5432" # Mapea el puerto 5432 del contenedor al puerto 5432 del host
     volumes:
@@ -27,12 +28,13 @@ services:
     restart: always
     ports:
       - "8080:8080" # Mapea el puerto 8080 del contenedor al puerto 8080 del host
+    env_file: .env
     environment:
       DB_HOST: postgres # El nombre del servicio de PostgreSQL en la red Docker
       DB_PORT: 5432
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: certitrack_db
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      DB_NAME: ${POSTGRES_DB:-certitrack_db}
       API_PORT: 8080
       # Otras variables de entorno necesarias para el backend (ej. JWT_SECRET, EMAIL_API_KEY)
       # JWT_SECRET: "your_jwt_secret_key"
@@ -50,11 +52,12 @@ services:
     restart: always
     ports:
       - "3000:3000" # Mapea el puerto 3000 del contenedor al puerto 3000 del host (puerto de desarrollo de React/Next.js)
+    env_file: .env
     environment:
       # URL del backend, accesible desde el navegador del usuario
-      NEXT_PUBLIC_API_URL: http://localhost:8080/api/v1 # O la URL de tu API en desarrollo
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
       # Si el frontend necesita acceder al backend DENTRO de la red Docker (ej. para SSR en Next.js)
-      # INTERNAL_API_URL: http://backend:8080/api/v1
+      # INTERNAL_API_URL: http://backend:${API_PORT}/api/v1
     depends_on:
       - backend # Asegura que el backend se inicie antes que el frontend
     networks:

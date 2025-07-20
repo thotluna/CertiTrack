@@ -1,0 +1,31 @@
+graph TD
+    subgraph "UI_FormularioEquipo (Registro - Detalle - Edicion)"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal del Formulario"
+            C[Titulo Dinamico: Registrar-Detalle de-Editar Equipo]
+
+            subgraph "Seccion Datos del Equipo" %% Nombre de subgraph simplificado
+                C1[Campo: Nombre del Equipo*]
+                C2[Campo: Numero de Activo]
+                C3[Campo: Descripcion Textarea]
+                C4[Campo: Responsable Busqueda-Seleccion Persona]
+                C5[Campo: Estado --Dropdown - Edicion-Detalle--]
+            end
+
+            subgraph "Seccion Certificaciones Asociadas" %% Nombre de subgraph simplificado
+                %% Nota: Esta seccion visible solo en Modo Detalle-Edicion
+                D1[Tabla-Lista de Certificaciones] --> D1a(Nombre, Tipo, Estado, Vencimiento)
+                D1 --> D1b(Boton: Ver Detalle Certificacion)
+                D2[Boton: Ver Todas las Certificaciones de este Equipo]
+            end
+
+            subgraph "Seccion Acciones del Formulario" %% Nombre de subgraph simplificado
+                F1[Boton: Guardar Equipo - Guardar Cambios]
+                F2[Boton: Cancelar]
+                F3[Boton: Eliminar Equipo --Modo Edicion--]
+                F4[Boton: Ver Detalles - Editar Equipo --Modo Detalle--]
+                F5[Boton: Volver al Listado --Modo Detalle--]
+            end
+        end
+    end

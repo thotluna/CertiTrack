@@ -1,0 +1,40 @@
+graph TD
+    subgraph "UI_ListaCertificaciones"
+        A[Barra de Navegación Superior/Lateral] --> B(Logo, Enlaces, Menú Usuario)
+
+        subgraph "Contenido Principal"
+            C[Título: Listado de Certificaciones]
+
+            subgraph "Barra de Acciones / Herramientas"
+                D[Campo de Búsqueda]
+                E[Botón: Filtrar abre panel/modal]
+                F[Botón: Registrar Nueva Certificación]
+                G[Botón: Exportar]
+            end
+
+            H[Tabla de Certificaciones] --> H1(Encabezados: Nombre, Tipo, Asociado A, Código, Emisión, Vencimiento, Estado, Acciones)
+            H --> H2(Filas de Datos: Certificación 1, Certificación 2, ...)
+            H --> H3(Paginación: Anterior, 1, 2, Siguiente)
+            H --> H4(Contador de Resultados: X de Y)
+
+            subgraph "Panel/Modal de Filtrado (Opcional, se activa con Botón Filtrar)"
+                I1[Filtro: Nombre de Certificación texto]
+                I2[Filtro: Código de Certificación texto]
+                I3[Filtro: Tipo de Certificación Dropdown]
+                I4[Filtro: Estado de Certificación Dropdown]
+                I5[Filtro: Asociado A Radio/Dropdown con Persona/Equipo]
+                I5 --> I5a{Campo de búsqueda/selección de Persona/Equipo}
+                I6[Filtro: Fecha de Emisión Desde/Hasta]
+                I7[Filtro: Fecha de Vencimiento Desde/Hasta]
+                I8[Botón: Aplicar Filtros]
+                I9[Botón: Limpiar Filtros]
+                I10[Botón: Cerrar]
+            end
+
+            H2 --> J(Columna Acciones para cada fila)
+            J --> J1(Botón: Ver Detalles)
+            J --> J2(Botón: Editar)
+            J --> J3(Botón: Adjuntar Documento)
+            J --> J4(Botón: Eliminar/Cambiar Estado)
+        end
+    end

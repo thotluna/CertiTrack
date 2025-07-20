@@ -1,0 +1,43 @@
+graph TD
+    start((Inicio)) --> A1
+
+    subgraph Gestor de Certificaciones / Administrador
+        A1[Seleccionar una certificacion para editar] --> A2
+        A2[El sistema carga y muestra los datos de la certificacion] --> A3
+
+        A3[Modificar datos de la certificacion ej. Fecha Vencimiento, Tipo, Observaciones] --> A3b
+        A3b[Modificar, adjuntar o reemplazar documento ] --> A4
+        A4[El sistema solicita confirmacion de guardado] --> A5
+
+        A5{Usuario confirma guardado?}
+
+        A5 -- No --> end_node((Fin))
+
+        A5 -- Si --> B1[El sistema valida los datos modificados]
+        B1{Datos Obligatorios y Validos?}
+
+        B1 -- No --> B2[El sistema informa errores en los datos]
+        B2 --> A3 
+
+        B1 -- Si --> C1{Existe un documento para validar?}
+
+        C1 -- No --> D1[El sistema actualiza la informacion de la certificacion]
+        D1 --> E1[El sistema verifica reglas de negocio de validez RN001]
+
+        C1 -- Si --> C2[El sistema valida el documento]
+        C2{Documento correcto?}
+
+        C2 -- No --> C3[El sistema informa error en el documento]
+        C3 --> A3 
+
+        C2 -- Si --> F1[El sistema actualiza la informacion de la certificacion y documento]
+        F1 --> E1
+
+        E1{Certificacion valida y Requiere Alerta?}
+
+        E1 -- No --> G1[El sistema confirma actualizacion exitosa]
+        G1 --> end_node((Fin))
+
+        E1 -- Si --> H1[El sistema programa la notificacion de vencimiento RN002]
+        H1 --> G1
+    end

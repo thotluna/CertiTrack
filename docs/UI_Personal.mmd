@@ -1,0 +1,36 @@
+graph TD
+    subgraph "UI_FormularioPersona (Registro - Detalle - Edicion)"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal del Formulario"
+            C[Titulo Dinamico: Registrar-Detalle de-Editar Persona]
+
+            subgraph "Seccion: Datos de la Persona"
+                C1[Campo: Nombre*]
+                C2[Campo: Apellido*]
+                C3[Campo: Identificacion*]
+                C4[Campo: Correo Electronico*]
+                C5[Campo: Telefono]
+                C6[Campo: Estado --Dropdown - Edicion-Detalle--]
+            end
+
+            subgraph "Seccion: Certificaciones Asociadas --Solo Detalle-Edicion--"
+                D1[Tabla-Lista de Certificaciones] --> D1a(Nombre, Estado, Vencimiento)
+                D1 --> D1b(Boton: Ver Detalle Certificacion)
+                D2[Boton: Ver Todas las Certificaciones de esta Persona]
+            end
+
+            subgraph "Seccion: Equipos Responsables --Solo Detalle-Edicion--"
+                E1[Tabla-Lista de Equipos] --> E1a(Nombre Equipo, Numero Activo, Estado Equipo)
+                E1 --> E1b(Boton: Ver Detalle Equipo)
+            end
+
+            subgraph "Seccion: Acciones del Formulario"
+                F1[Boton: Guardar Persona - Guardar Cambios]
+                F2[Boton: Cancelar]
+                F3[Boton: Eliminar Persona --Modo Edicion--]
+                F4[Boton: Ver Detalles - Editar Persona --Modo Detalle--]
+                F5[Boton: Volver al Listado --Modo Detalle--]
+            end
+        end
+    end

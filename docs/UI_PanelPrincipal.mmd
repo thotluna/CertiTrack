@@ -1,0 +1,23 @@
+graph TD
+    subgraph "Dashboard / Panel Principal (CertiTrack)"
+        A[Barra de Navegación Superior/Lateral] --> B(Logo CertiTrack)
+        A --> C(Enlaces: Dashboard, Certificaciones, Personas, Equipos, Alertas, Configuración, Ayuda)
+        A --> D(Menú Usuario: Nombre, Perfil, Cerrar Sesión)
+
+        subgraph "Contenido Principal"
+            E[Sección de Resumen] --> F(Tarjeta: Certificaciones Próximas a Vencer)
+            E --> G(Tarjeta: Certificaciones Vencidas)
+            E --> H(Tarjeta: Certificaciones Activas)
+            E --> I(Tarjeta: Alertas Enviadas/Pendientes)
+
+            J[Gráficos/Estadísticas Clave Opcional] --> K(Gráfico: Certificaciones por Tipo)
+            J --> L(Gráfico: Distribución por Estado)
+
+            M[Accesos Rápidos / Acciones Frecuentes] --> N(Botón: Registrar Nueva Certificación)
+            M --> O(Botón: Ver Todas las Certificaciones)
+            M --> P(Botón: Añadir Persona)
+            M --> Q(Botón: Añadir Equipo)
+
+            R[Alertas Recientes / Actividad Reciente]
+        end
+    end

@@ -1,0 +1,37 @@
+graph TD
+    subgraph "UI_ListaPersonas"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal"
+            C[Titulo: Listado de Personas]
+
+            subgraph "Barra de Acciones / Herramientas"
+                D[Campo de Busqueda]
+                E[Boton: Filtrar --abre panel-modal--]
+                F[Boton: Registrar Nueva Persona]
+                G[Boton: Exportar]
+            end
+
+            H[Tabla de Personas] --> H1(Encabezados: Nombre Completo, Identificacion, Correo, Telefono, Estado, Certificaciones, Acciones)
+            H --> H2(Filas de Datos: Persona 1, Persona 2, ...)
+            H --> H3(Paginacion: Anterior, 1, 2, Siguiente)
+            H --> H4(Contador de Resultados: X de Y)
+
+            subgraph "Panel-Modal de Filtrado --Opcional, se activa con Boton Filtrar--"
+                I1[Filtro: Nombre texto]
+                I2[Filtro: Apellido texto]
+                I3[Filtro: Identificacion texto]
+                I4[Filtro: Correo Electronico texto]
+                I5[Filtro: Estado Dropdown]
+                I6[Boton: Aplicar Filtros]
+                I7[Boton: Limpiar Filtros]
+                I8[Boton: Cerrar]
+            end
+
+            H2 --> J(Columna Acciones para cada fila)
+            J --> J1(Boton: Ver Detalles)
+            J --> J2(Boton: Editar)
+            J --> J3(Boton: Certificaciones Asociadas)
+            J --> J4(Boton: Eliminar-Cambiar Estado)
+        end
+    end

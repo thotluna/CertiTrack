@@ -1,0 +1,26 @@
+graph TD
+    start((Inicio)) --> A1
+
+    subgraph Gestor de Certificaciones / Administrador
+        A1[Seleccionar una certificacion de la lista] --> A2
+        A2[El sistema muestra los detalles completos de la certificacion] --> A3
+
+        A3{Certificacion tiene documento adjunto?}
+
+        A3 -- No --> A_End_NoDoc[Flujo finaliza sin documento]
+        A_End_NoDoc --> end_node((Fin))
+
+        A3 -- Si --> B1[El sistema muestra la opcion de Ver Documento]
+        B1{Usuario selecciona Ver Documento?}
+
+        B1 -- No --> end_node((Fin))
+
+        B1 -- Si --> B2[El sistema recupera y prepara el documento]
+        B2{Documento recuperado y valido?}
+
+        B2 -- No --> B3[El sistema informa error al acceder al documento]
+        B3 --> end_node((Fin))
+
+        B2 -- Si --> B4[El sistema abre o descarga el documento]
+        B4 --> end_node((Fin))
+    end

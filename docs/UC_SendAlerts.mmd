@@ -1,0 +1,31 @@
+graph TD
+    start((Inicio)) --> A1
+
+    subgraph Proceso de Alertas Automaticas
+        A1[El sistema inicia el proceso de alerta programado] --> A2
+        A2[El sistema consulta certificaciones proximas a vencer RN002] --> A3
+        A3{Hay certificaciones proximas a vencer?}
+
+        A3 -- No --> end_node((Fin))
+
+        A3 -- Si --> B1[Para cada certificacion proxima a vencer]
+        B1 --> B_fork
+
+        B_fork(("Fork")) --> B2_left[El sistema genera el contenido de la notificacion]
+        B_fork --> B2_right[El sistema identifica destinatarios de la notificacion]
+
+        B2_left --> B3_join
+        B2_right --> B3_join
+
+        B3_join(("Join")) --> C1[El sistema envia la notificacion al destinatario]
+        C1 --> C2[El sistema registra el envio de la notificacion]
+        %% Continua con la siguiente certificacion (implica un bucle)
+        C2 --> B1 
+
+    end
+
+    %% Nota: La flecha de C2 a B1 simula un bucle para cada certificacion encontrada.
+    %%       Si no hay mas certificaciones, el flujo sale del bucle.
+    %%       El end_node despues de "No" en A3 es el verdadero punto de fin si no hay alertas.
+
+    end_node((Fin))

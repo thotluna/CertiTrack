@@ -1,0 +1,35 @@
+graph TD
+    start((Inicio)) --> A1
+
+    subgraph Gestor de Certificaciones / Administrador
+        A1[Ingresar al modulo de Certificaciones] --> A2
+        A2[Seleccionar opcion Consultar Certificaciones] --> A3
+        A3[El sistema muestra lista de certificaciones y opciones de filtro] --> A4
+
+        A4[Ingresar criterios de busqueda ej. Nombre PersonaEquipo, Tipo Certificacion, Rango Fechas] --> A5
+        A5{Usuario aplica filtros?}
+
+        A5 -- Si --> A6[El sistema valida criterios de filtro]
+        A6{Criterios de filtro validos?}
+
+        A6 -- No --> A7[El sistema informa errores en los filtros]
+        A7 --> A4
+
+        A6 -- Si --> A8[El sistema busca y filtra las certificaciones]
+        A8 --> A9[El sistema muestra resultados filtrados]
+
+        A5 -- No --> A9
+
+        A9 --> B1{Usuario desea exportar resultados?}
+        B1 -- Si --> B2[El sistema prepara los datos para exportacion]
+        B2 --> B3[El sistema ofrece descarga del archivo exportado]
+        B3 --> B4{Usuario desea ver detalle de certificacion?}
+
+        B1 -- No --> B4
+        B4 -- Si --> C1[Seleccionar certificacion para ver detalle]
+       C1 --> end_flow_to_detail 
+
+        B4 -- No --> end_node((Fin))
+    end
+
+    end_flow_to_detail((Fin de Flujo para Detalle))

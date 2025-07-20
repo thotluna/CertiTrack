@@ -1,0 +1,59 @@
+@startuml names "Diagrama de Componentes: Sistema CertiTrack"
+left to right direction
+!theme plain
+title Diagrama de Componentes: Sistema CertiTrack (Sintaxis Interfaz Alt. Corregida)
+
+' Definición de Componentes
+component [Gestión de Personas] as CompPersonas
+component [Gestión de Equipos] as CompEquipos
+component [Gestión de Certificaciones] as CompCerts
+component [Servicio de Notificaciones] as CompNotif
+component [Servicio de Almacenamiento de Documentos] as CompDocs
+
+database "Base de Datos CertiTrack" as DB
+
+' Componente para el almacenamiento físico de documentos
+storage "Almacenamiento de Archivos" as DocStorage {
+    folder "Documentos Certificaciones" as CertDocsFolder
+}
+
+' Definición de Interfaces (APIs)
+interface "API Personas" as IPersonas
+interface "API Equipos" as IEquipos
+interface "API Certificaciones" as ICerts
+interface "API Notificaciones" as INotif
+interface "API Documentos" as IDocs
+
+' Conexión de componentes a sus interfaces que PROVEEN
+' Usando la notación <<provides>> con flecha normal
+CompPersonas --> IPersonas : <<provides>>
+CompEquipos --> IEquipos : <<provides>>
+CompCerts --> ICerts : <<provides>>
+CompNotif --> INotif : <<provides>>
+CompDocs --> IDocs : <<provides>>
+
+
+' Relaciones y Uso de Interfaces
+
+' Componente de Gestión de Personas
+CompPersonas --> DB : Almacena/Consulta datos
+
+' Componente de Gestión de Equipos
+CompEquipos --> DB : Almacena/Consulta datos
+
+' Componente de Gestión de Certificaciones (Core)
+CompCerts --> DB : Almacena/Consulta datos
+' Relaciones de uso (componente que usa --> interfaz del componente usado)
+CompCerts --> IPersonas : <<usa>>
+CompCerts --> IEquipos : <<usa>>
+CompCerts --> IDocs : <<adjunta/obtiene>>
+CompCerts --> INotif : <<solicita alerta>>
+
+' Servicio de Notificaciones
+CompNotif --> DB : Consulta fechas/correos
+
+' Servicio de Almacenamiento de Documentos
+CompDocs --> DB : Almacena/Obtiene metadata y rutas
+CompDocs --> DocStorage : Almacena/Recupera documentos
+
+@enduml

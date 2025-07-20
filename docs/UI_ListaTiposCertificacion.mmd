@@ -1,0 +1,23 @@
+graph TD
+    subgraph "UI_ListaTiposCertificacion"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal"
+            C[Titulo: Gestion de Tipos de Certificacion]
+
+            subgraph "Barra de Acciones / Herramientas"
+                D[Campo de Busqueda]
+                E[Boton: Registrar Nuevo Tipo]
+            end
+
+            H[Tabla de Tipos de Certificacion] --> H1(Encabezados: ID, Nombre Tipo, Descripcion, Estado, Acciones)
+            H --> H2(Filas de Datos: Tipo 1, Tipo 2, ...)
+            H --> H3(Paginacion Opcional: Anterior, 1, 2, Siguiente)
+            H --> H4(Contador de Resultados: X de Y)
+
+            H2 --> J(Columna Acciones para cada fila)
+            J --> J1(Boton: Editar)
+            J --> J2(Boton: Activar-Desactivar)
+            J --> J3(Boton: Eliminar)
+        end
+    end

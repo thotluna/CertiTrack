@@ -1,0 +1,41 @@
+@startuml names "Use Cases for CertiTrack System"
+left to right direction
+
+' Definición de Actores
+actor "Administrador de Sistema" as Admin
+actor "Gestor de Certificaciones" as Manager
+actor "Sistema de Notificaciones" as SystemNotifications <<System>> 
+
+' Límite del Sistema (Subsistema o Paquete)
+package "Sistema CertiTrack" {
+    usecase "Gestionar Personas" as UC_ManagePersons
+    usecase "Gestionar Equipos" as UC_ManageEquipment
+    usecase "Registrar Nueva Certificación" as UC_RegisterCert
+    usecase "Consultar y Filtrar Certificaciones" as UC_QueryFilterCert
+    usecase "Ver Detalle y Documento" as UC_ViewCertDetail
+    usecase "Editar Certificación" as UC_EditCert
+    usecase "Eliminar Certificación" as UC_DeleteCert
+    usecase "Enviar Alertas de Vencimiento" as UC_SendAlerts
+}
+
+' Relaciones entre Actores y Casos de Uso
+Admin -- UC_ManagePersons
+Admin -- UC_ManageEquipment
+
+Manager -- UC_RegisterCert
+Manager -- UC_QueryFilterCert
+Manager -- UC_ViewCertDetail
+Manager -- UC_EditCert
+Manager -- UC_DeleteCert
+
+SystemNotifications -- UC_SendAlerts
+
+' Relación de Especialización/Herencia (para los roles en el MVP)
+Admin --|> Manager : <<extends>>
+
+' Notas adicionales
+note right of UC_SendAlerts : Proceso automatizado diario
+note right of Manager : En el MVP, el Administrador puede realizar\ntodas las tareas del Gestor.
+
+@enduml
+

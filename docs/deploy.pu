@@ -1,0 +1,57 @@
+@startuml
+
+actor "User" as User
+
+cloud "Internet" {
+  node "Elastic IP (EIP)" as EIP
+}
+
+rectangle "AWS Cloud" {
+  rectangle "Security Group" as SG {
+    interface "Port 80/443 (HTTP/S)" as PortWeb
+    interface "Port 22 (SSH)" as PortSSH
+  }
+
+  node "EC2 Instance (t3.micro/t2.micro)" as EC2_Instance {
+    component "Docker Daemon" as DockerD
+    artifact "Docker Compose" as DockerC
+
+    component "Nginx (Reverse Proxy)" as Nginx
+    component "Frontend (React/Next.js)" as Frontend
+    component "Backend (Go Gin)" as Backend
+    database "PostgreSQL DB" as PostgreSQL
+
+    storage "PostgreSQL Data Volume" as PG_Vol
+    storage "Attached Documents Volume" as Doc_Vol
+
+    DockerD --> DockerC
+    DockerC --> Nginx
+    DockerC --> Frontend
+    DockerC --> Backend
+    DockerC --> PostgreSQL
+
+    Nginx --> Frontend : "Proxy HTTP/S"
+    Nginx --> Backend : "Proxy HTTP/S"
+    Frontend --> Backend : "Call API"
+    Backend --> PostgreSQL : "DB (GORM)"
+
+    PostgreSQL --> PG_Vol
+    Backend --> Doc_Vol
+  }
+
+  cloud "AWS CloudWatch" as CloudWatch
+  cloud "Amazon SES" as SES
+}
+
+User --> Internet
+Internet --> EIP
+EIP --> SG
+SG --> PortWeb
+SG --> PortSSH
+SG --> EC2_Instance
+
+EC2_Instance --> CloudWatch
+
+Backend --> SES : "Send Email (API)"
+
+@enduml

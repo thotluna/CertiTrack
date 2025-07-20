@@ -1,0 +1,37 @@
+graph TD
+    subgraph "UI_FormularioReglaAlerta (Registro - Edicion)"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal del Formulario"
+            C[Titulo Dinamico: Registrar-Editar Regla de Alerta]
+
+            subgraph "Seccion Criterios de la Regla"
+                C1[Campo: Tipo de Certificacion* - Dropdown]
+                C2[Campo: Tipo de Alerta* - Dropdown]
+                C3[Campo: Dias Antes del Vencimiento* - Numero]
+                C4[Campo: Descripcion de la Regla - Textarea]
+                C5[Checkbox: Activa]
+            end
+
+            subgraph "Seccion Configuracion de Destinatarios"
+                D[Subtitulo: Destinatarios de la Notificacion]
+                D0[Instrucciones: Añada quien recibira la alerta]
+
+                subgraph "Lista de Destinatarios Configurados"
+                    D1[Tabla-Lista] --> D1a(Encabezados: Tipo Destinatario, Valor-Correo, Acciones)
+                    D1 --> D1b(Filas: Destinatario 1, Destinatario 2, ...)
+                end
+
+                subgraph "Interfaz para Añadir Destinatarios"
+                    D2[Dropdown: Añadir Destinatario por Tipo]
+                    D2a{Campo: Entrada de Valor - Condicional ej. Correo Especifico}
+                    D3[Boton: Añadir Destinatario]
+                end
+            end
+
+            subgraph "Seccion Acciones del Formulario"
+                F1[Boton: Guardar Regla]
+                F2[Boton: Cancelar]
+            end
+        end
+    end

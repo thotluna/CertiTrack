@@ -1,0 +1,89 @@
+erDiagram
+    Persona {
+        VARCHAR(50) id PK "Identificador unico de la persona"
+        VARCHAR(100) nombre
+        VARCHAR(100) apellido
+        VARCHAR(20) identificacion "Cedula o documento de identidad"
+        VARCHAR(255) correo_electronico
+        VARCHAR(20) telefono
+        VARCHAR(20) estado "ACTIVO, INACTIVO"
+        DATETIME fecha_creacion
+        DATETIME fecha_actualizacion
+    }
+
+    Equipo {
+        VARCHAR(50) id PK "Identificador unico del equipo"
+        VARCHAR(100) nombre
+        TEXT descripcion
+        VARCHAR(50) numero_activo "Numero de inventario o activo fijo"
+        VARCHAR(20) estado "ACTIVO, DADO_DE_BAJA"
+        DATETIME fecha_creacion
+        DATETIME fecha_actualizacion
+        VARCHAR(50) id_responsable_persona FK "FK a Persona (opcional)"
+    }
+
+    TipoCertificacion {
+        VARCHAR(50) id PK "Identificador unico del tipo"
+        VARCHAR(100) nombre "Nombre del tipo de certificacion (ej. AWS, PMP)"
+        TEXT descripcion
+    }
+
+    Certificacion {
+        VARCHAR(50) id PK "Identificador unico de la certificacion"
+        VARCHAR(50) entidad_asociada_id "ID de la entidad (Persona o Equipo)"
+        VARCHAR(20) tipo_entidad_asociada "Tipo de la entidad asociada (PERSONA, EQUIPO)"
+        VARCHAR(50) id_tipo_certificacion FK "FK a TipoCertificacion"
+        VARCHAR(255) nombre_certificacion "Nombre especifico si difiere del tipo"
+        VARCHAR(100) codigo_certificacion "Codigo o numero de la certificacion"
+        DATE fecha_emision
+        DATE fecha_vencimiento
+        VARCHAR(20) estado "ACTIVA, VENCIDA, CANCELADA, REVOCADA"
+        DATETIME fecha_creacion
+        DATETIME fecha_actualizacion
+    }
+
+    Documento {
+        VARCHAR(50) id PK "Identificador unico del documento"
+        VARCHAR(50) id_certificacion FK "FK a Certificacion"
+        VARCHAR(255) nombre_archivo
+        VARCHAR(512) ruta_almacenamiento "Ruta en el sistema de almacenamiento externo"
+        VARCHAR(50) tipo_mime
+        BIGINT tamano_bytes
+        DATETIME fecha_subida
+    }
+
+    AlertaNotificacion {
+        VARCHAR(50) id PK "Identificador unico de la alerta"
+        VARCHAR(50) id_certificacion FK "FK a Certificacion"
+        DATETIME fecha_programada
+        DATETIME fecha_envio_general "Fecha real de envio general (NULL si no enviada)"
+        VARCHAR(50) tipo_alerta "VENCIMIENTO_PROXIMO, VENCIMIENTO_HOY"
+        VARCHAR(20) estado_general "PENDIENTE, ENVIADA_PARCIAL, ENVIADA_COMPLETA, FALLIDA" 
+    }
+
+    AlertaDestinatario {
+        VARCHAR(50) id PK "Identificador unico del destinatario de alerta"
+        VARCHAR(50) id_alerta_notificacion FK "FK a AlertaNotificacion"
+        VARCHAR(255) correo_electronico
+        VARCHAR(50) tipo_destinatario "PRINCIPAL, COPIA, JEFE_UNIDAD, RESPONSABLE_EQUIPO"
+        VARCHAR(20) estado_envio_individual "PENDIENTE, ENVIADO, FALLIDO"
+        DATETIME fecha_envio_individual "Fecha real de envio a este destinatario"
+    }
+
+    CertificacionAtributo {
+        VARCHAR(50) id PK "Identificador unico del atributo"
+        VARCHAR(50) id_certificacion FK "FK a Certificacion"
+        VARCHAR(100) nombre_atributo "Nombre del atributo ej. Institucion"
+        TEXT valor_atributo "Valor del atributo"
+        VARCHAR(50) tipo_dato_valor "Opcional: STRING, NUMERO, FECHA"
+    }
+
+    Persona ||--o{ Equipo : "es responsable de"
+    TipoCertificacion ||--o{ Certificacion : "es de tipo"
+    Certificacion ||--o{ Documento : "adjunta"
+    Certificacion ||--o{ AlertaNotificacion : "genera"
+    Certificacion ||--o{ CertificacionAtributo : "tiene atributos"
+    AlertaNotificacion ||--o{ AlertaDestinatario : "tiene destinatarios" 
+
+    Persona }|..|{ Certificacion : "asociada via polimorfismo"
+    Equipo }|..|{ Certificacion : "asociada via polimorfismo"

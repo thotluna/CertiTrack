@@ -1,0 +1,33 @@
+graph TD
+    subgraph "UI_DetalleAlerta"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal"
+            C[Titulo: Detalle de Alerta --ID Alerta - Tipo Alerta--]
+
+            subgraph "Seccion Resumen de la Alerta"
+                D1[Campo: ID de Alerta --Solo Lectura--]
+                D2[Campo: Tipo de Alerta --Solo Lectura--]
+                D3[Campo: Certificacion Asociada --Nombre con enlace--]
+                D4[Campo: Entidad Asociada --Nombre con enlace--]
+                D5[Campo: Fecha Programada --Solo Lectura--]
+                D6[Campo: Fecha Envio General --Solo Lectura--]
+                D7[Campo: Estado General --Solo Lectura--]
+                D8[Campo: Total Destinatarios --Solo Lectura--]
+            end
+
+            subgraph "Seccion Destinatarios de la Notificacion"
+                E1[Tabla de Destinatarios] --> E1a(Encabezados: Correo Electronico, Tipo Destinatario, Estado Envio Individual, Fecha Envio Individual, Acciones)
+                E1 --> E1b(Filas de Datos: Destinatario 1, Destinatario 2, ...)
+                E1 --> E1c(Paginacion --Opcional--)
+                E1 --> E1d(Contador de Resultados: X de Y)
+                E1b --> E2(Columna Acciones para cada destinatario)
+                E2 --> E2a(Boton: Reenviar a este Destinatario --Opcional--)
+            end
+
+            subgraph "Seccion Acciones de la Pantalla"
+                F1[Boton: Volver al Listado de Alertas]
+                F2[Boton: Reenviar Alerta General --Opcional--]
+            end
+        end
+    end

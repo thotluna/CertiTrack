@@ -1,0 +1,49 @@
+graph LR
+    subgraph "Cliente"
+        Navegador[Navegador Web / Aplicación Web]
+    end
+
+    subgraph "Capa de Presentación (Front-end)"
+        UI[Interfaz de Usuario CertiTrack] -- HTTP/HTTPS (REST API) --> LND[API REST de Logica de Negocio]
+    end
+
+    subgraph "Capa de Logica de Negocio (Back-end)"
+        LND[API REST de Logica de Negocio]
+        BDL(Modulo de Base de Datos - ORM)
+        MN(Motor de Notificaciones)
+        SEG(Modulo de Seguridad - Autenticacion-Autorizacion)
+
+        LND --> BDL
+        LND --> MN
+        LND --> SEG
+        MN --> SES[Servicio Externo de Notificaciones: Email-SMS]
+    end
+
+    subgraph "Capa de Datos"
+        DB(Base de Datos PostgreSQL)
+        FS[Almacenamiento de Ficheros - Documentos]
+
+        BDL --> DB
+        BDL --> FS
+    end
+
+    %% Estilos actualizados para un mejor contraste (usando colores pastel mas saturados o ligeramente mas oscuros)
+
+    %% Medium pink/purple
+    style Navegador fill:#E0BBE4,stroke:#333,stroke-width:2px
+
+    %% Mas oscuro para mayor contraste
+    style UI fill:#957DAD,stroke:#333,stroke-width:2px
+
+    %% Un tono distintivo para la logica
+    style LND fill:#D291BC,stroke:#333,stroke-width:2px
+    style BDL fill:#D291BC,stroke:#333,stroke-width:2px
+    style MN fill:#D291BC,stroke:#333,stroke-width:2px
+    style SEG fill:#D291BC,stroke:#333,stroke-width:2px
+
+    %% Amarillo mas vivo/naranja claro
+    style DB fill:#FFC72C,stroke:#333,stroke-width:2px
+    style FS fill:#FFC72C,stroke:#333,stroke-width:2px
+
+    %% Rojo salmon mas oscuro
+    style SES fill:#FF6B6B,stroke:#333,stroke-width:2px

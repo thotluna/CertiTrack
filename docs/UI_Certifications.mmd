@@ -1,0 +1,45 @@
+graph TD
+    subgraph "UI_FormularioCertificacion (Registro / Detalle / Edición)"
+        A[Barra de Navegación Superior/Lateral] --> B(Logo, Enlaces, Menú Usuario)
+
+        subgraph "Contenido Principal del Formulario"
+            C[Título Dinámico: Registrar/Detalle de/Editar Certificación]
+
+            subgraph "Sección: Datos Básicos de la Certificación"
+                C1[Campo: Nombre de Certificación*]
+                C2[Campo: Tipo de Certificación* Dropdown]
+                C3[Selector: Asociado A* Persona / Equipo]
+                C3 --> C3a[Campo Búsqueda/Selector de Persona/Equipo*]
+                C4[Campo: Código de Certificación]
+                C5[Campo: Fecha de Emisión* Selector de Fecha]
+                C6[Campo: Fecha de Vencimiento Selector de Fecha]
+                C7[Campo: Estado Dropdown - Edición/Detalle]
+            end
+
+            subgraph "Sección: Atributos Adicionales (Dinámicos)"
+                D1[Tabla/Lista de Atributos] --> D1a(Columna: Nombre Atributo)
+                D1 --> D1b(Columna: Valor Atributo)
+                D1 --> D1c(Columna: Acciones)
+                D2[Botón: Añadir Atributo]
+            end
+
+            subgraph "Sección: Documentos Adjuntos"
+                E1[Lista de Documentos Adjuntos] --> E1a(Nombre Archivo, Tamaño, Fecha, Acciones)
+                E2[Botón: Adjuntar Nuevo Documento abre modal]
+                subgraph "Modal: Carga de Documentos"
+                    E2a[Campo: Seleccionar Archivo]
+                    E2b[Barra de Progreso]
+                    E2c[Botón: Subir]
+                    E2d[Botón: Cancelar]
+                end
+            end
+
+            subgraph "Sección: Acciones del Formulario"
+                F1[Botón: Guardar Certificación / Guardar Cambios]
+                F2[Botón: Cancelar]
+                F3[Botón: Eliminar Certificación Modo Edición]
+                F4[Botón: Ver Detalles / Editar Certificación Modo Detalle]
+                F5[Botón: Volver al Listado Modo Detalle]
+            end
+        end
+    end

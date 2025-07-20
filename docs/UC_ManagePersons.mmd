@@ -1,0 +1,42 @@
+graph TD
+    start((Inicio)) --> A1
+
+    subgraph Administrador
+        A1[Ingresar al modulo de Gestion de Personas] --> A2
+        A2[El sistema muestra lista de personas y opciones de gestion] --> A3
+
+        A3{Accion de Gestion de Persona?}
+
+        A3 -- Crear Persona --> A4[El sistema solicita datos de nueva persona]
+        A4 --> A_CRUD_START
+
+        A3 -- Consultar/Filtrar --> A5[Ingresar criterios de busqueda para persona]
+        A5 --> A_CRUD_SEARCH_RESULTS
+
+        A3 -- Editar Persona --> A6[Seleccionar persona a editar]
+        A6 --> A7[El sistema carga y muestra datos de persona]
+        A7 --> A_CRUD_START
+
+        A3 -- Cambiar Estado Persona --> A8b[Seleccionar persona para cambiar estado]
+        A8b --> A9b[El sistema solicita nuevo estado ej. Inactivo Cancelado]
+        A9b{Confirmar cambio de estado?}
+
+        A9b -- Si --> A_CHANGE_STATUS_FLOW
+        A9b -- No --> end_node((Fin))
+    end
+
+    subgraph Sistema CertiTrack
+        A_CRUD_START[IngresarModificar datos de la persona] --> B1
+        B1[El sistema valida datos de la persona] --> B2{Datos validos?}
+
+        B2 -- No --> B3[El sistema informa errores en los datos]
+        B3 --> A_CRUD_START
+
+        B2 -- Si --> B4[El sistema guardaActualiza la informacion de la persona]
+        B4 --> C1[El sistema confirma la operacion exitosa]
+        C1 --> end_node((Fin))
+
+        A_CRUD_SEARCH_RESULTS[El sistema muestra resultados de busqueda de personas] --> C1
+
+        A_CHANGE_STATUS_FLOW[El sistema actualiza el estado de la persona] --> C1
+    end

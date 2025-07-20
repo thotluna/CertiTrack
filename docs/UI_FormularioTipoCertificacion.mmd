@@ -1,0 +1,19 @@
+graph TD
+    subgraph "UI_FormularioTipoCertificacion (Registro - Edicion)"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal del Formulario"
+            C[Titulo Dinamico: Registrar-Editar Tipo de Certificacion]
+
+            subgraph "Seccion Datos del Tipo de Certificacion"
+                C1[Campo: Nombre del Tipo* - Texto]
+                C2[Campo: Descripcion - Textarea]
+                C3[Campo: Estado - Dropdown --Edicion-Detalle--]
+            end
+
+            subgraph "Seccion Acciones del Formulario"
+                F1[Boton: Guardar Tipo - Guardar Cambios]
+                F2[Boton: Cancelar]
+            end
+        end
+    end

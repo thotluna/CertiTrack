@@ -1,0 +1,23 @@
+graph TD
+    subgraph "UI_ListaReglasAlerta"
+        A[Barra de Navegacion Superior-Lateral] --> B(Logo, Enlaces, Menu Usuario)
+
+        subgraph "Contenido Principal"
+            C[Titulo: Configuracion de Reglas de Alerta]
+
+            subgraph "Barra de Acciones / Herramientas"
+                D[Campo de Busqueda]
+                E[Boton: Registrar Nueva Regla]
+            end
+
+            H[Tabla de Reglas de Alerta] --> H1(Encabezados: ID Regla, Tipo Certificacion, Tipo Alerta, Dias Antes Vencimiento, Destinatarios Predeterminados, Estado Regla, Acciones)
+            H --> H2(Filas de Datos: Regla 1, Regla 2, ...)
+            H --> H3(Paginacion: Anterior, 1, 2, Siguiente)
+            H --> H4(Contador de Resultados: X de Y)
+
+            H2 --> J(Columna Acciones para cada fila)
+            J --> J1(Boton: Editar)
+            J --> J2(Boton: Activar-Desactivar)
+            J --> J3(Boton: Eliminar)
+        end
+    end

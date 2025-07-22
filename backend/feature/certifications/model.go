@@ -1,4 +1,3 @@
-// features/certifications/model.go
 package certifications
 
 import (
@@ -9,7 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// Certification represents the certification entity in the system.
 type Certification struct {
 	ID                  uuid.UUID      `gorm:"type:uuid;primaryKey;default:uuid_generate_v4()" json:"id"`
 	PersonID            uuid.UUID      `gorm:"type:uuid;not null" json:"person_id"`

@@ -1249,31 +1249,31 @@ Aquí se presentan los endpoints principales para las entidades que hemos defini
     }
     ```
 
-* **PATCH /api/v1/certificaciones/{id}/**  
-  * **Descripción:** Actualizar parcialmente una certificación existente. Solo se envían los campos que se desean modificar.  
-  * **Parámetros de Ruta:** id.  
-  * **Cuerpo de Solicitud:** Objeto con solo los campos a actualizar.  
-  * **Cuerpo de Respuesta (200 OK):** Objeto Certificacion actualizado. 
+* **PATCH /api/v1/certifications/{id}/**  
+  * **Descripción:** Update an existing certification partially. Only send the fields that need to be updated.  
+  * **Path Parameters:** id.  
+  * **Request Body:** Object with only the fields to update.  
+  * **Response Body (200 OK):** Updated Certification object. 
     ```json 
     {  
       "id": "uuid-cert-001",  
-      "estado": "VENCIDA",  
-      "fecha_actualizacion": "2024-07-05T12:00:00Z",  
-      "nombre_certificacion": "Certificacion de Primeros Auxilios",  
-      "id_tipo_certificacion": "uuid-tipo-pa",  
-      "asociado_a_tipo": "PERSONA",  
-      "asociado_a_id": "uuid-persona-001",  
-      "codigo_certificacion": "PA-2023-001",  
-      "fecha_emision": "2023-01-15",  
-      "fecha_vencimiento": "2025-01-15",  
-      "fecha_creacion": "2023-01-10T10:00:00Z"  
+      "status": "EXPIRED",  
+      "updated_at": "2024-07-05T12:00:00Z",  
+      "certification_name": "First Aid Certification",  
+      "certification_type_id": "uuid-type-pa",  
+      "associated_type": "PERSON",  
+      "associated_id": "uuid-person-001",  
+      "certification_code": "PA-2023-001",  
+      "issue_date": "2023-01-15",  
+      "expiration_date": "2025-01-15",  
+      "created_at": "2023-01-10T10:00:00Z"  
     }
     ```
 
-* **DELETE /api/v1/certificaciones/{id}/**  
-  * **Descripción:** Eliminar lógicamente una certificación (cambiar su estado a 'CANCELADA' o 'INACTIVA').  
-  * **Parámetros de Ruta:** id.  
-  * **Cuerpo de Respuesta (200 OK):**  
+* **DELETE /api/v1/certifications/{id}/**  
+  * **Description:** Soft delete a certification (change its status to 'CANCELLED' or 'INACTIVE').  
+  * **Path Parameters:** id.  
+  * **Response Body (200 OK):**  
     ```json
     {  
       "message": "Certificacion actualizada a estado CANCELADA."  

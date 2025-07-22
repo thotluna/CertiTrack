@@ -1,8 +1,8 @@
-// cmd/certitrack-backend/main.go
 package main
 
 import (
 	"certitrack/backend/feature/certifications"
+	"certitrack/backend/feature/person"
 	"certitrack/backend/shared/database"
 	"certitrack/backend/shared/middleware"
 	"log"
@@ -33,10 +33,25 @@ func main() {
 		})
 	})
 
+	router.GET("/debug/routes", func(c *gin.Context) {
+		routes := router.Routes()
+		c.JSON(http.StatusOK, routes)
+	})
+
 	apiV1 := router.Group("/api/v1")
 	{
+		repo := person.NewGormRepository(database.DB)
+		service := person.NewService(repo)
+		handler := person.NewHandler(service)
+		handler.RegisterRoutes(apiV1)
+
 		certHandler := certifications.NewHandler(database.DB)
 		certHandler.RegisterRoutes(apiV1)
+
+		log.Println("Registered routes:")
+		for _, r := range router.Routes() {
+			log.Printf("%s %s\n", r.Method, r.Path)
+		}
 	}
 
 	apiPort := os.Getenv("API_PORT")
